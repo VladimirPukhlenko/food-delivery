@@ -3,9 +3,6 @@ import { getProducts } from "@/requests/products";
 import Link from "next/link";
 import AddToCart from "./AddToCart";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 const Features = async () => {
   const featuredProducts = await getProducts("landingPage");
   return (

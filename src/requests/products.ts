@@ -1,6 +1,6 @@
 import { Product } from "@/types/types";
 
-const PRODUCTS_API_ENDPOINT = `/api/products`;
+const PRODUCTS_API_ENDPOINT = `${process.env.BASE_URL}/api/products`;
 
 /**
  * Получает список продуктов.
