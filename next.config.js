@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
   async headers() {
     return [
       {
@@ -23,8 +26,11 @@ const nextConfig = {
       },
     ];
   },
+
   reactStrictMode: true,
   env: {
     BASE_URL: process.env.BASE_URL,
   },
 };
+
+module.exports = nextConfig;

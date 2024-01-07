@@ -1,9 +1,7 @@
-// Импортируем необходимые типы
-import { CartItemType, TCart } from "@/types/types";
+import { CartItemType, TCart } from "@/types/cart.interface";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// Определяем интерфейс для хранилища состояния
 interface IStore extends TCart {
   addToCart: (item: CartItemType) => void;
   deleteFromCart: (itemId: CartItemType) => void;
@@ -13,7 +11,6 @@ interface IStore extends TCart {
 export const useCartStore = create(
   persist<IStore>(
     (set, get) => ({
-      // Начальное состояние
       products: [],
 
       // Вычисляемая функция для получения общей стоимости товаров в корзине

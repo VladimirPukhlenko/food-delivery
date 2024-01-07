@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+
 import Menu from "./Menu";
 import CartIcon from "./CartIcon";
 import { BsTelephoneFill } from "react-icons/bs";

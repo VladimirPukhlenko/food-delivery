@@ -5,7 +5,6 @@ import Image from "next/image";
 export const SignInBtns = () => {
   return (
     <>
-      {" "}
       <button
         className="flex items-center gap-2 border  border-gray-300 w-3/4 p-2 rounded-lg"
         onClick={() => signIn("google", { redirect: false, callbackUrl: "/" })}

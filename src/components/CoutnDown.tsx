@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 const CountDown = () => {
-  let difference = +new Date("2023-10-25") - +new Date();
+  const difference = +new Date("2024-04-16") - +new Date();
   const [delay, setDelay] = useState(difference);
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));

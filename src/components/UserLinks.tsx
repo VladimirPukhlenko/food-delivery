@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+
 import LoadingDots from "./UI/LoadingDots";
+
 const UserLinks = () => {
   const { data: user, status } = useSession();
-  if (status == "loading") {
+  if (status === "loading") {
     return <LoadingDots />;
   }
 

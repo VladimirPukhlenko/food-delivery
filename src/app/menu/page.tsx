@@ -1,6 +1,7 @@
-import { getAllCategories } from "@/requests/getCategories";
+import { getAllCategories } from "@/services/getCategories";
 import { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 const MenuPage = async () => {
-  const menuItems = await getAllCategories();
+  const menuItems = await getAllCategories().catch(() => {
+    redirect("/");
+  });
   return (
     <div className="h-[calc(100vh-6rem)] justify-center p-4 flex  flex-col lg:flex-row lg:items-center">
       {menuItems &&

@@ -14,7 +14,6 @@ const Form = () => {
     register,
     handleSubmit,
     reset,
-    control,
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "onTouched" });
 

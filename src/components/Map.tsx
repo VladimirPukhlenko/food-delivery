@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+
 import Loader from "./UI/Loader";
 
 const Map = () => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.GOOGLEMAPS_API_KEY!,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLEMAPS_API_KEY!,
   });
 
   return (

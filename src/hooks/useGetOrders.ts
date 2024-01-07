@@ -1,4 +1,4 @@
-import { getOrders } from "@/requests/orders";
+import { getOrders } from "@/services/orders";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 

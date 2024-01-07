@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Notification from "@/components/Notification";
-import AuthProvider from "@/components/AuthProvider";
-import ReactQueryProvider from "@/components/ReactQueryProvider";
+import AuthProvider from "@/providers/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import { Montserrat } from "next/font/google";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

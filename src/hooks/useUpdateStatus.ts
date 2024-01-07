@@ -1,4 +1,4 @@
-import { updateStatus } from "@/requests/updateOrderStatus";
+import { updateStatus } from "@/services/updateOrderStatus";
 import { UseMutationResult, useMutation, useQueryClient } from "react-query";
 
 type UpdateStatusProps = {

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
 import { SiInstagram } from "react-icons/si";
 import { IoLogoYoutube } from "react-icons/io";

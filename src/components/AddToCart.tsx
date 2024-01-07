@@ -1,9 +1,9 @@
 "use client";
-
-import { useCartStore } from "@/libs/zustance/store";
-import { CartItemType, Product } from "@/types/types";
 import React, { MouseEvent } from "react";
 import toast from "react-hot-toast";
+
+import { useCartStore } from "@/libs/zustance/store";
+import { CartItemType } from "@/types/cart.interface";
 
 const AddToCart = ({ product }: { product: CartItemType }) => {
   const { addToCart } = useCartStore();

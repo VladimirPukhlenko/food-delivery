@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-
 const CountDown = dynamic(() => import("./CoutnDown"), {
   ssr: false,
 });

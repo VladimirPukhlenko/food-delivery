@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import { AiOutlineClose } from "react-icons/ai";
-import { CartItemType } from "@/types/types";
 import { useCartStore } from "@/libs/zustance/store";
 import Link from "next/link";
+import { CartItemType } from "@/types/cart.interface";
 
 const CartItem: FC<CartItemType> = (product) => {
   const { deleteFromCart } = useCartStore();

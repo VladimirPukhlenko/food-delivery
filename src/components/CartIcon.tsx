@@ -1,7 +1,7 @@
 "use client";
+import React, { useEffect } from "react";
 
 import { useCartStore } from "@/libs/zustance/store";
-import React, { useEffect } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const CartIcon = () => {

@@ -2,7 +2,7 @@ import { mongooseConnect } from "@/libs/mongoose/mongooseConnect";
 import type { AuthOptions } from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
-import UserDB from "@/libs/mongoose/UserSchema";
+import UserDB from "@/libs/mongoose/schemas/UserSchema";
 import NextAuth, { User } from "next-auth";
 declare module "next-auth" {
   interface Session {
@@ -47,7 +47,6 @@ export const authOptions: AuthOptions = {
         }
         return true;
       } catch (e) {
-        console.log(e);
         return false;
       }
     },

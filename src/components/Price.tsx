@@ -1,11 +1,11 @@
 "use client";
-
-import { useCartStore } from "@/libs/zustance/store";
-import { Product } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const Price = ({ product }: { product: Product }) => {
+import { useCartStore } from "@/libs/zustance/store";
+import { IProduct } from "@/types/product.interface";
+
+const Price = ({ product }: { product: IProduct }) => {
   const { addToCart } = useCartStore();
   const [total, setTotal] = useState(0);
   const [selected, setSelected] = useState(0);

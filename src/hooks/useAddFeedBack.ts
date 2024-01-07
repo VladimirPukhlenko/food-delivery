@@ -1,4 +1,4 @@
-import { addFeedBack } from "@/requests/contactUs";
+import { addFeedBack } from "@/services/contactUs";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 

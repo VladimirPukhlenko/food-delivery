@@ -1,107 +1,79 @@
-import User from "@/libs/mongoose/UserSchema";
+import User from "@/libs/mongoose/schemas/UserSchema";
 import { mongooseConnect } from "@/libs/mongoose/mongooseConnect";
-import Order from "@/libs/mongoose/orderSchema";
+import Order from "@/libs/mongoose/schemas/orderSchema";
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
-import { IOrder } from "@/types/types";
+import { IOrder } from "@/types/order.interface";
 
-/**
- * Обрабатывает GET-запрос для получения заказов.
- * @param {NextRequest} request - Запрос на получение заказов.
- * @returns {NextResponse} - Ответ с информацией о заказах.
- */
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
 
-  if (session?.user) {
-    try {
-      await mongooseConnect();
-
-      if (session.user?.isAdmin) {
-        const allOrders = await Order.find();
-        return new NextResponse(JSON.stringify(allOrders), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
+  if (!session?.user) {
+    return NextResponse.json(
+      { message: "Not authenticated" },
+      {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
       }
+    );
+  }
+  try {
+    await mongooseConnect();
 
-      const requeredUser = await User.findOne({ email: session.user.email });
-      const userOrders = await Order.find({
-        _id: { $in: requeredUser?.orders },
-      });
-
-      return new NextResponse(JSON.stringify(userOrders), {
+    if (session.user?.isAdmin) {
+      const allOrders = await Order.find();
+      return new NextResponse(JSON.stringify(allOrders), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
-    } catch (error) {
-      console.log(error);
-      return new NextResponse(
-        JSON.stringify({ message: "Error while trying to request" }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
     }
-  }
+    const orders = await Order.find({
+      email: session.user.email,
+    });
 
-  return NextResponse.json(
-    { message: "Not authenticated" },
-    {
-      status: 401,
+    return new NextResponse(JSON.stringify(orders), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
-    }
-  );
+    });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({ message: "Internal server error" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 }
 
-/**
- * Обрабатывает POST-запрос для добавления нового заказа.
- * @param {Request} request - Запрос на добавление заказа.
- * @returns {NextResponse} - Ответ с информацией о результате добавления заказа.
- */
 export async function POST(request: Request): Promise<NextResponse> {
   const session = await getServerSession(authOptions);
 
-  if (session?.user) {
-    try {
-      const order: IOrder = await request.json();
-      await mongooseConnect();
-
-      const userWithOrder = await User.findOne({ email: session.user.email });
-      if (!userWithOrder) {
-        return new NextResponse(JSON.stringify({ message: "Not authorized" }), {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-
-      const newOrder = new Order(order);
-      const res = await newOrder.save();
-      userWithOrder.orders.push(res._id);
-      userWithOrder.save();
-
-      return new NextResponse(
-        JSON.stringify({
-          message: "Order successfully completed. Wait for email",
-        }),
-        {
-          status: 201,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-      return new NextResponse(JSON.stringify({ message: "Order failed" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-  } else {
+  if (!session?.user) {
     return new NextResponse(JSON.stringify({ message: "Not authorized" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
     });
+  }
+
+  try {
+    const order: IOrder = await request.json();
+    await mongooseConnect();
+
+    const newOrder = await new Order(order).save();
+
+    return new NextResponse(JSON.stringify(newOrder), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({ message: "Internal server error" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }

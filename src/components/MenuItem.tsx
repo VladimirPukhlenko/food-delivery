@@ -1,9 +1,10 @@
-import { Product } from "@/types/types";
 import Link from "next/link";
 import { FC } from "react";
 import Image from "next/image";
+
 import AddToCart from "./AddToCart";
-type Props = Product & {
+import { IProduct } from "@/types/product.interface";
+type Props = IProduct & {
   params: {
     category: string;
   };
